@@ -1,6 +1,13 @@
 from lexer import Lexer
+from parse import Parser
+from interpreter import Interpreter
 while True:
     text=input("Volt: ")
     tokenizer = Lexer(text)
     tokens = tokenizer.tokenize()
-    print(tokens)
+    parser=Parser(tokens)
+    tree= parser.parse()
+    interpreter =Interpreter(tree)
+
+    
+    print(interpreter.interpret())

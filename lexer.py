@@ -22,6 +22,9 @@ class Lexer:
             elif self.char in Lexer.operations:
                 self.token= Operation(self.char)
                 self.move()
+            elif self.char in Lexer.stopwords:
+                self.move()
+                continue
             self.tokens.append(self.token)
         return self.tokens
     def extract_number(self):
