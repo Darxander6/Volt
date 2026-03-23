@@ -154,3 +154,4 @@ class Parser:
         self.idx += 1
         if self.idx < len(self.tokens):
             self.token = self.tokens[self.idx]
+

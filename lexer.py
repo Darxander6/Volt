@@ -81,3 +81,4 @@ class Lexer:
         self.idx += 1
         if self.idx < len(self.text):
             self.char = self.text[self.idx]
+
