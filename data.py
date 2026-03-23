@@ -3,8 +3,9 @@ class Data:
         self.variables = {}
     
     def read(self, id):
+        if id not in self.variables:
+            raise Exception(f"Variable '{id}' not defined")
         return self.variables[id]
-    
     def read_all(self):
         return self.variables
     

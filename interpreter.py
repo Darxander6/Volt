@@ -21,9 +21,19 @@ class Interpreter:
         left_type = "VAR" if str(left.type).startswith("VAR") else str(left.type)
         right_type = "VAR" if str(right.type).startswith("VAR") else str(right.type)
         if op.value == "=":
-            left.type = f"VAR({right_type})"
-            self.data.write(left, right)
-            return self.data.read_all()
+            if isinstance(right, list):
+               right = self.interpret(right)
+
+          # Convert token → raw value
+            if hasattr(right, "value"):
+               value = right.value
+               type_ = right.type
+            else:
+                value = right
+                type_ = "INT"  # fallback
+
+            self.data.write(left.value, (type_, value))
+            return value
 
         left = getattr(self, f"read_{left_type}")(left.value)
         right = getattr(self, f"read_{right_type}")(right.value)
@@ -86,6 +96,7 @@ class Interpreter:
                     else:
                         return
                 elif tree[0].value == "while":
+                    print(tree)
                     condition = self.interpret(tree[1][0])
                     
                     while condition.value == 1:
